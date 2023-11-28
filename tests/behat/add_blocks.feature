@@ -21,16 +21,15 @@ Feature: Adding blocks to the poster page
       | poster      | Poster 003            | This is a test poster 003.    | C1      | poster003 |
     And I log in as "teacher1"
     And I am on "Course 001" course homepage with editing mode on
-    And I follow "Poster 003"
+    And I am on the "Poster 003" "poster activity" page
     And I add the "html" poster block
-    Then I wait "15" seconds
     And I configure the "(new text block)" block
     And I set the field "config_title" to "Created in poster context"
     And I set the field "Content" to "This is first HTML block displayed at a poster page"
     And I set the field "Region" to "mod_poster-pre"
     And I press "Save changes"
     And I am on "Course 001" course homepage
-    And I add the "html" block
+    And I add the "Text" block
     And I configure the "(new text block)" block
     And I set the field "config_title" to "Created in course context"
     And I set the field "Content" to "This is second HTML block displayed at a poster page"
