@@ -1,4 +1,4 @@
-@mod @mod_poster
+@mod @mod_poster @javascript
 Feature: Adding blocks to the poster page
   In order to have some contents displayed at a poster page
   As a teacher
@@ -23,15 +23,16 @@ Feature: Adding blocks to the poster page
     And I am on "Course 001" course homepage
     And I turn editing mode on
     And I follow "Poster 003"
-    And I add the "HTML" poster block
-    And I configure the "(new HTML block)" block
+    And I add the "html" poster block
+    Then I wait "15" seconds
+    And I configure the "(new text block)" block
     And I set the field "config_title" to "Created in poster context"
     And I set the field "Content" to "This is first HTML block displayed at a poster page"
     And I set the field "Region" to "mod_poster-pre"
     And I press "Save changes"
     And I am on "Course 001" course homepage
-    And I add the "HTML" block
-    And I configure the "(new HTML block)" block
+    And I add the "html" block
+    And I configure the "(new text block)" block
     And I set the field "config_title" to "Created in course context"
     And I set the field "Content" to "This is second HTML block displayed at a poster page"
     And I set the field "Display on page types" to "Any page"
