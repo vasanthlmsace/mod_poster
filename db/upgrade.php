@@ -23,8 +23,6 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Performs the poster upgrade steps.
  *
@@ -48,7 +46,5 @@ function xmldb_poster_upgrade($oldversion) {
         // Poster savepoint reached.
         upgrade_mod_savepoint(true, 2023112701, 'poster');
     }
-
-
     return true;
 }

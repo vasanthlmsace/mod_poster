@@ -24,7 +24,6 @@
 
 use mod_poster\poster;
 
-defined('MOODLE_INTERNAL') || die();
 
 define('POSTER_DISPLAY_PAGE', 0);
 define('POSTER_DISPLAY_INLINE', 1);
@@ -160,8 +159,8 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
  * information needed to print this activity in various places.
  *
  * If poster needs to be displayed inline we store additional information
- * in customdata, so functions {@link poster_cm_info_dynamic()} and
- * {@link poster_cm_info_view()} do not need to do DB queries
+ * in customdata, so functions {See poster_cm_info_dynamic()} and
+ * {See poster_cm_info_view()} do not need to do DB queries
  *
  * @param cm_info $cm
  * @return cached_cm_info info
@@ -175,7 +174,7 @@ function poster_get_coursemodule_info($cm) {
     $cminfo = new cached_cm_info();
     $cminfo->name = $poster->name;
     if ($poster->display == POSTER_DISPLAY_INLINE) {
-        // prepare poster object to store in customdata
+        // Prepare poster object to store in customdata.
         $fdata = new stdClass();
         $fdata->showdescriptionview = $poster->showdescriptionview;
         if ($cm->showdescription && strlen(trim($poster->intro))) {
@@ -204,7 +203,7 @@ function poster_get_coursemodule_info($cm) {
  */
 function poster_cm_info_dynamic(cm_info $cm) {
     if ($cm->customdata) {
-        // the field 'customdata' is not empty IF AND ONLY IF we display contens inline
+        // The field 'customdata' is not empty IF AND ONLY IF we display contens inline.
         $cm->set_no_view_link();
     }
 }
@@ -219,14 +218,10 @@ function poster_cm_info_view(cm_info $cminfo) {
     global $PAGE;
     $poster = new poster($cminfo);
 
-    // if ($cm->uservisible && $cm->customdata &&
-    // has_capability('mod/poster:view', $cm->context)) {
     if ($cminfo->uservisible && $cminfo->customdata && has_capability('mod/poster:view', $cminfo->context)) {
         // Restore poster object from customdata.
         // Note the field 'customdata' is not empty IF AND ONLY IF we display contens inline.
         // Otherwise the content is default.
-        // $poster = $cm->customdata;
-        // $poster->id = (int)$cm->instance;
         $context = context_module::instance($cminfo->id);
         $page = new moodle_page();
         $page->set_context($context);
@@ -234,7 +229,7 @@ function poster_cm_info_view(cm_info $cminfo) {
         $poster->setup_page($page);
         $output = $page->get_renderer('mod_poster');
         if ($page->user_allowed_editing()) {
-            $page->blocks->set_default_region("modpost-pre-$cminfo->id");
+            $page->blocks->set_default_region('mod_poster-pre');
             $page->theme->addblockposition = BLOCK_ADDBLOCK_POSITION_DEFAULT;
         }
         $page->blocks->load_blocks();

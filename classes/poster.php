@@ -1,12 +1,12 @@
 <?php
-// This file is part of mod_datalynx for Moodle - http://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
-// It is free software: you can redistribute it and/or modify
+// Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// It is distributed in the hope that it will be useful,
+// Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Define poster class.
  * @package mod_poster
  * @copyright based on the work by 2015 David Mudrak <david@moodle.com>{
  *
@@ -28,12 +28,10 @@ namespace mod_poster;
 use mod_poster\event\course_module_viewed;
 use completion_info;
 
-defined('MOODLE_INTERNAL') or die();
-
 /**
  * Class poster
  *
- * @package mod_datalynx
+ * @package mod_poster
  */
 class poster {
 
@@ -70,7 +68,7 @@ class poster {
      *
      * @return false|mixed|object
      */
-    public function get_settings(){
+    public function get_settings() {
         return $this->settings;
     }
 
@@ -79,7 +77,7 @@ class poster {
      *
      * @return false|mixed|object
      */
-    public function get_course(){
+    public function get_course() {
         return $this->course;
     }
 
@@ -88,17 +86,21 @@ class poster {
      *
      * @param \moodle_page $page
      */
-    public function setup_page(\moodle_page &$page){
+    public function setup_page(\moodle_page &$page) {
         $page->set_url('/mod/poster/view.php', array('id' => $this->cm->id));
         $page->set_title($this->course->shortname.': '.$this->settings->name);
         $page->set_heading($this->course->fullname);
         $page->set_activity_record($this->settings);
         // Define the custom block regions we want to use at the poster view page.
         // Region names are limited to 16 characters.
-        $page->blocks->add_region("modpost-pre-{$this->cm->id}", true);
-        $page->blocks->add_region("modpost-post-{$this->cm->id}", true);
+        $page->blocks->add_region('mod_poster-pre', true);
+        $page->blocks->add_region('mod_poster-post', true);
     }
 
+    /**
+     * Trigger module view.
+     * @param \context $context
+     */
     public function trigger_module_viewed(\context $context) {
         // Trigger module viewed event.
         $event = course_module_viewed::create(array(
