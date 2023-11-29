@@ -1,4 +1,4 @@
-@mod @mod_poster @add_poster @javascript
+@mod @mod_poster @add_poster
 Feature: Adding poster activity
   In order to display blocks not only on the course page side bars
   As a teacher
