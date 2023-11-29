@@ -22,8 +22,7 @@ Feature: Adding blocks to the poster page
     And I log in as "admin"
     And I am on "Course 001" course homepage with editing mode on
     And I am on the "Poster 003" "poster activity" page
-    And I add the "html" poster block
-    Then I reload the page
+    And I select "html" from the "bui_addblock" singleselect
     And I configure the "(new text block)" block
     And I set the field "config_title" to "Created in poster context"
     And I set the field "Content" to "This is first HTML block displayed at a poster page"
