@@ -41,12 +41,24 @@ require_capability('mod/poster:view', $PAGE->context);
 
 $poster->setup_page($PAGE);
 
-if ($edit !== null and confirm_sesskey() and $PAGE->user_allowed_editing()) {
+if ($edit !== null && confirm_sesskey() && $PAGE->user_allowed_editing()) {
     $USER->editing = $edit;
     redirect($PAGE->url);
 }
 
+if ($PAGE->user_allowed_editing()) {
+    //$PAGE->set_button($this->edit_button($PAGE->url));
+    $PAGE->blocks->set_default_region('mod_poster-pre');
+    $PAGE->theme->addblockposition = BLOCK_ADDBLOCK_POSITION_DEFAULT;
+}
+
 $poster->trigger_module_viewed($PAGE->context);
+
 $output = $PAGE->get_renderer('mod_poster');
 
+
+echo $OUTPUT->header();
+
 echo $output->view_page($posterdata);
+
+echo $OUTPUT->footer();

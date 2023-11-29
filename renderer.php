@@ -24,10 +24,6 @@
  */
 
 
-
-defined('MOODLE_INTERNAL') || die();
-
-
 /**
  * The renderer for poster module
  *
@@ -44,13 +40,8 @@ class mod_poster_renderer extends plugin_renderer_base {
      */
     public function view_page($poster) {
 
-        if ($this->page->user_allowed_editing()) {
-            $this->page->set_button($this->edit_button($this->page->url));
-            $this->page->blocks->set_default_region("modpost-pre-{$this->page->cm->id}");
-            $this->page->theme->addblockposition = BLOCK_ADDBLOCK_POSITION_DEFAULT;
-        }
-
-        $out = $this->header();
+       
+        $out = "";
 
         if ($poster->shownameview) {
             $out .= $this->view_page_heading($poster);
@@ -61,7 +52,6 @@ class mod_poster_renderer extends plugin_renderer_base {
         }
 
         $out .= $this->view_page_content($poster);
-        $out .= $this->footer();
 
         return $out;
     }
@@ -105,8 +95,8 @@ class mod_poster_renderer extends plugin_renderer_base {
             $haspre = true;
             $haspost = true;
         } else {
-            $haspre = $this->page->blocks->region_has_content("modpost-pre-{$this->page->cm->id}", $this);
-            $haspost = $this->page->blocks->region_has_content("modpost-post-{$this->page->cm->id}", $this);
+            $haspre = $this->page->blocks->region_has_content('mod_poster-pre', $this);
+            $haspost = $this->page->blocks->region_has_content('mod_poster-post', $this);
         }
 
         if (!$haspre && !$haspost) {
@@ -114,8 +104,8 @@ class mod_poster_renderer extends plugin_renderer_base {
         }
 
         $cssclassmain = '';
-        $cssclassmain .= $haspre ? '' : " empty-region-modpost-pre-{$this->page->cm->id}";
-        $cssclassmain .= $haspost ? '' : " empty-region-modpost-post-{$this->page->cm->id}";
+        $cssclassmain .= $haspre ? '' : ' empty-region-mod_poster-pre';
+        $cssclassmain .= $haspost ? '' : ' empty-region-mod_poster-post';
 
         $out .= \html_writer::start_div($cssclassmain, array('id' => 'mod_poster-content'));
         $out .= \html_writer::start_div('row');
@@ -126,7 +116,7 @@ class mod_poster_renderer extends plugin_renderer_base {
         if ($haspre) {
             $out .= \html_writer::start_div($haspost ? $cssclassgrid : $cssclasssingle);
             $out .= \html_writer::start_div('mod_poster-content-region', array('id' => 'mod_poster-content-region-pre'));
-            $out .= $this->custom_block_region("modpost-pre-{$this->page->cm->id}");
+            $out .= $this->custom_block_region('mod_poster-pre');
             $out .= \html_writer::end_div();
             $out .= \html_writer::end_div();
         }
@@ -134,7 +124,7 @@ class mod_poster_renderer extends plugin_renderer_base {
         if ($haspost) {
             $out .= \html_writer::start_div($haspre ? $cssclassgrid : $cssclasssingle);
             $out .= \html_writer::start_div('mod_poster-content-region', array('id' => 'mod_poster-content-region-post'));
-            $out .= $this->custom_block_region("modpost-post-{$this->page->cm->id}");
+            $out .= $this->custom_block_region('mod_poster-post');
             $out .= \html_writer::end_div();
             $out .= \html_writer::end_div();
         }
