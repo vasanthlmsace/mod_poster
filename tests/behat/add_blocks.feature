@@ -19,7 +19,7 @@ Feature: Adding blocks to the poster page
     And the following "activities" exist:
       | activity    | name                  | intro                         | course  | idnumber  |
       | poster      | Poster 003            | This is a test poster 003.    | C1      | poster003 |
-    And I log in as "admin"
+    And I log in as "teacher1"
     And I am on "Course 001" course homepage with editing mode on
     And I add the "Text" block
     And I configure the "(new text block)" block
