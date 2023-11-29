@@ -1,4 +1,4 @@
-@mod @mod_poster @javascript
+@mod @mod_poster
 Feature: Adding blocks to the poster page
   In order to have some contents displayed at a poster page
   As a teacher
