@@ -22,6 +22,7 @@ Feature: Adding blocks to the poster page
     And I log in as "admin"
     And I am on "Course 001" course homepage with editing mode on
     And I am on the "Poster 003" "poster activity" page
+    And I add the "Text" block
     And I select "html" from the "bui_addblock" singleselect
     And I configure the "(new text block)" block
     And I set the field "config_title" to "Created in poster context"
@@ -29,7 +30,7 @@ Feature: Adding blocks to the poster page
     And I set the field "Region" to "mod_poster-pre"
     And I press "Save changes"
     And I am on "Course 001" course homepage with editing mode on
-    And I add the "Text" block
+    #And I add the "Text" block
     And I configure the "(new text block)" block
     And I set the field "config_title" to "Created in course context"
     And I set the field "Content" to "This is second HTML block displayed at a poster page"
@@ -40,7 +41,7 @@ Feature: Adding blocks to the poster page
     And I set the field "Display on page types" to "Poster module main page"
     And I set the field "Region" to "mod_poster-pre"
     And I press "Save changes"
-    And I add the "Logged in user" poster block
+    And I select "Logged in user" from the "bui_addblock" singleselect
     And I configure the "Logged in user" block
     And I set the field "Region" to "mod_poster-post"
     And I press "Save changes"
