@@ -33,7 +33,7 @@ namespace mod_poster;
  * @copyright   2021 bdecent gmbh <https://bdecent.de>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_poster_generator_test extends advanced_testcase {
+class mod_poster_generator_test extends \advanced_testcase {
 
     /**
      * Test {@see mod_poster_generator::create_instance()}.
