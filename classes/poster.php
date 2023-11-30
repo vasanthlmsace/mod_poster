@@ -58,8 +58,8 @@ class poster {
      */
     public function __construct($cm) {
         global $DB;
-        $this->settings = $DB->get_record('poster', array('id' => $cm->instance), '*', MUST_EXIST);
-        $this->course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+        $this->settings = $DB->get_record('poster', ['id' => $cm->instance], '*', MUST_EXIST);
+        $this->course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
         $this->cm = $cm;
     }
 
@@ -87,7 +87,7 @@ class poster {
      * @param \moodle_page $page
      */
     public function setup_page(\moodle_page &$page) {
-        $page->set_url('/mod/poster/view.php', array('id' => $this->cm->id));
+        $page->set_url('/mod/poster/view.php', ['id' => $this->cm->id]);
         $page->set_title($this->course->shortname.': '.$this->settings->name);
         $page->set_heading($this->course->fullname);
         $page->set_activity_record($this->settings);
@@ -103,10 +103,10 @@ class poster {
      */
     public function trigger_module_viewed(\context $context) {
         // Trigger module viewed event.
-        $event = course_module_viewed::create(array(
+        $event = course_module_viewed::create([
             'objectid' => $this->settings->id,
             'context' => $context,
-        ));
+        ]);
         $event->add_record_snapshot('course_modules', $this->cm);
         $event->add_record_snapshot('course', $this->course);
         $event->add_record_snapshot('poster', $this->settings);

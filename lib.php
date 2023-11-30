@@ -106,11 +106,11 @@ function poster_update_instance(stdClass $poster) {
 function poster_delete_instance($id) {
     global $DB;
 
-    if (! $poster = $DB->get_record('poster', array('id' => $id))) {
+    if (! $poster = $DB->get_record('poster', ['id' => $id])) {
         return false;
     }
 
-    $DB->delete_records('poster', array('id' => $poster->id));
+    $DB->delete_records('poster', ['id' => $poster->id]);
 
     return true;
 }
@@ -148,9 +148,9 @@ function poster_extend_settings_navigation(settings_navigation $settingsnav, nav
  * @param stdClass $currentcontext Current context of block
  */
 function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
-    return array(
+    return [
         'mod-poster-view' => get_string('page-mod-poster-view', 'mod_poster'),
-    );
+    ];
 }
 
 
@@ -167,7 +167,7 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
  */
 function poster_get_coursemodule_info($cm) {
     global $DB;
-    if (!($poster = $DB->get_record('poster', array('id' => $cm->instance),
+    if (!($poster = $DB->get_record('poster', ['id' => $cm->instance],
         'id, name, display, showdescriptionview, intro, introformat'))) {
         return null;
     }
@@ -215,7 +215,7 @@ function poster_cm_info_dynamic(cm_info $cm) {
  * @param cm_info $cminfo
  */
 function poster_cm_info_view(cm_info $cminfo) {
-    global $PAGE;
+    global $PAGE, $OUTPUT;
     $poster = new poster($cminfo);
 
     if ($cminfo->uservisible && $cminfo->customdata && has_capability('mod/poster:view', $cminfo->context)) {
@@ -228,12 +228,15 @@ function poster_cm_info_view(cm_info $cminfo) {
         $page->set_cm($cminfo);
         $poster->setup_page($page);
         $output = $page->get_renderer('mod_poster');
-        if ($page->user_allowed_editing()) {
-            $page->blocks->set_default_region('mod_poster-pre');
-            $page->theme->addblockposition = BLOCK_ADDBLOCK_POSITION_DEFAULT;
+        if (!$PAGE->user_is_editing()) {
+            $page->blocks->load_blocks();
+            $content = $output->view_page_content($poster);
+        } else {
+            $url = new moodle_url('/mod/poster/view.php', ['id' => $cminfo->id]);
+            $content = $OUTPUT->render_from_template('mod_poster/edit_label', [
+                'url' => $url->out(),
+            ]);
         }
-        $page->blocks->load_blocks();
-        $content = $output->view_page_content($poster);
         $cminfo->set_content($content);
     }
 }

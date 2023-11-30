@@ -49,3 +49,5 @@ $string['displaypage'] = 'Display poster on separate page';
 $string['displayinline'] = 'Display poster on course page';
 $string['display'] = 'Choose where to display the poster contents';
 $string['display_help'] = 'This module allows you to display blocks directly on the course page or in a separate page.';
+$string['editlabelmessage'] = 'These blocks should be edited on Poster view page';
+$string['editlabelbutton'] = 'Go to view page';

@@ -1,10 +1,10 @@
 @mod @mod_poster
-Feature: Check the blocks to the poster page
+Feature: Adding blocks to the poster page
   In order to have some contents displayed at a poster page
   As a teacher
   I need to add blocks to the regions provided by the poster view page
 
-  Scenario: Add blocks to the poster page
+  Scenario: Add multiple blocks to the poster page
     Given the following "users" exist:
       | username    | firstname | lastname  | email                |
       | teacher1    | Teacher   | 1         | teacher1@example.com |

@@ -46,21 +46,7 @@ if ($edit !== null && confirm_sesskey() && $PAGE->user_allowed_editing()) {
     redirect($PAGE->url);
 }
 
-
 $poster->trigger_module_viewed($PAGE->context);
-
 $output = $PAGE->get_renderer('mod_poster');
 
-if ($PAGE->user_allowed_editing()) {
-    $PAGE->set_button($output->edit_button($PAGE->url));
-    $PAGE->blocks->set_default_region('mod_poster-pre');
-    $PAGE->theme->addblockposition = BLOCK_ADDBLOCK_POSITION_DEFAULT;
-}
-
-
-
-echo $OUTPUT->header();
-
 echo $output->view_page($posterdata);
-
-echo $OUTPUT->footer();
